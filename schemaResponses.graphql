@@ -1,0 +1,6 @@
+type HelloGraphqlResponse {
+    isSuccess: Boolean!
+    message: String!
+    exception: String!
+    data: Object
+}
