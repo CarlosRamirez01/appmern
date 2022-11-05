@@ -1,20 +1,20 @@
 const express = require("express");
 // Apollo server
 const { ApolloServer } = require("apollo-server-express");
-const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
-const { ApolloServerPluginInlineTrace } = require("apollo-server-core");
-const { GraphQLJSON } = require("graphql-type-json")
 
 // Path
-const path = require("path");
 const fs = require("fs");
+const path = require("path");
 
 // Graphql
 const Query = require("./resolvers/Query");
 const Mutation = require("./resolvers/Mutation");
+const { GraphQLJSON } = require("graphql-type-json")
+
+const { GraphQLUpload, graphqlUploadExpress } = require("graphql-upload");
+const { ApolloServerPluginInlineTrace } = require("apollo-server-core");
 
 // Types Resolvers
-
 const resolvers = {
   Upload: GraphQLUpload,
   Object: GraphQLJSON,
@@ -34,9 +34,9 @@ async function startServer() {
     ],
     resolvers,
     plugins: [ApolloServerPluginInlineTrace()],
-    context: ({ req }) => {
+    context: async ({ req }) => {
       return {
-        req,
+        ...req,
       };
     },
   });
